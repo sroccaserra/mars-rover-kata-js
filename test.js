@@ -53,6 +53,7 @@ class Robot {
       this.y = this.y + 1;
     }
     else if (this.direction == "W"){
+      if(this.x === 1) this.x +=  5;
       this.x = this.x - 1;
     }
   }
@@ -77,10 +78,10 @@ class Robot {
 
 it('gives its position', () => {
   // given
-  const robot = new Robot(0, 0, "N");
+  const robot = new Robot(1, 1, "N");
 
   // then
-  expect(robot.getPosition()).to.deep.equal({x: 0, y: 0});
+  expect(robot.getPosition()).to.deep.equal({x: 1, y: 1});
 });
 
 it('gives its position after starting at 1,1', () => {
@@ -93,66 +94,77 @@ it('gives its position after starting at 1,1', () => {
 
 it('moves forward when facing north', () => {
   // given
-  const robot = new Robot(0, 0, "N");
+  const robot = new Robot(1, 1, "N");
 
   // when
   robot.move("f");
 
   // then
-  expect(robot.getPosition()).to.deep.equal({x: 0, y: 1});
+  expect(robot.getPosition()).to.deep.equal({x: 1, y: 2});
 });
 
 it('moves forward when facing north from another position', () => {
   // given
-  const robot = new Robot(0, 1, "N");
+  const robot = new Robot(1, 2, "N");
 
   // when
   robot.move("f");
 
   // then
-  expect(robot.getPosition()).to.deep.equal({x: 0, y: 2});
+  expect(robot.getPosition()).to.deep.equal({x: 1, y: 3});
 });
 
 it('moves forward when facing south', () => {
   // given
-  const robot = new Robot(0, 0, "S");
+  const robot = new Robot(1, 2, "S");
 
   // when
   robot.move("f");
 
   // then
-  expect(robot.getPosition()).to.deep.equal({x: 0, y: -1});
+  expect(robot.getPosition()).to.deep.equal({x: 1, y: 1});
 });
 
 it('moves forward when facing east', () => {
   // given
-  const robot = new Robot(0, 0, "E");
+  const robot = new Robot(1, 1, "E");
 
   // when
   robot.move("f");
 
   // then
-  expect(robot.getPosition()).to.deep.equal({x: 1, y: 0});
+  expect(robot.getPosition()).to.deep.equal({x: 2, y: 1});
 });
 
 it('moves forward when facing west', () => {
   // given
-  const robot = new Robot(0, 0, "W");
+  const robot = new Robot(2, 1, "W");
 
   // when
   robot.move("f");
 
   // then
-  expect(robot.getPosition()).to.deep.equal({x: -1, y: 0});
+  expect(robot.getPosition()).to.deep.equal({x: 1, y: 1});
+});
+
+it('moves forward when facing west and x = 1', () => {
+  // given
+  const robot = new Robot(1, 1, "W");
+
+  // when
+  robot.move("f");
+
+  // then
+  expect(robot.getPosition()).to.deep.equal({x: 5, y: 1});
 });
 
 it('moves backward when facing north', () => {
   // given
-  const robot = new Robot(0, 0, "N");
+  const robot = new Robot(1, 2, "N");
 
   // when
   robot.move("b");
 
   // then
-  expect(robot.getPosition()).to.deep.equal({x: 0, y: -1});
+  expect(robot.getPosition()).to.deep.equal({x: 1, y: 1});
 });
